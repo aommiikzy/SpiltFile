@@ -1,0 +1,282 @@
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.LinkedList;
+
+public class spfile {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	    //  String fileName = "output.txt";
+	      
+//	            StringBuilder aom = new StringBuilder();
+//
+//		        try (BufferedReader br = Files.newBufferedReader(Paths.get("test.txt"))) {
+//
+//		        	 String line;
+//		        	 int c = 0;
+//		        	 LinkedList<Integer> array = new LinkedList<Integer>(); 
+//			          
+//			            while ((line = br.readLine()) != null) {
+//			            	
+//			            	if(line.trim().isEmpty())
+//			            	{
+//			            		array.add(0);
+//			            	}
+//			            if(line.trim().isEmpty()==false)
+//			            	{
+//			            		array.add(1);
+//			            	}
+//			            }
+//
+//		        }
+//		        catch (IOException e) {
+//		            System.err.format("IOException: %s%n", e);
+//		        }
+	      
+	        int count=0;
+	      int countstart = 0;
+	            StringBuilder start = new StringBuilder();
+
+		        try (BufferedReader br = Files.newBufferedReader(Paths.get("test.txt"))) {
+
+		            String line;
+		            int numberpre = -1;
+		            int numbercur = 1;
+		            int check = 0;
+		            while ((line = br.readLine()) != null) {
+		            	String [] sentences = line.split(" ");
+		            
+		            		if(line.trim().isEmpty())
+		            		{
+		            			continue;
+		            		}
+		            		if (sentences[1].contains("frame")==true)
+		            		{
+		     
+		            			check=1;
+	         		
+		            			}	
+		            		else if(check==1)
+		            		{
+		            			numbercur = Integer.parseInt(sentences[0]);
+//		            			System.out.println("numbercur = "+numbercur);
+		            			
+		            			if(numbercur < numberpre)
+		            			{
+		            				break;
+		            			}
+		            			else if(numbercur > numberpre)
+		            			{
+		            				countstart ++;
+		            				numberpre = numbercur;
+		            			}
+		            			
+		            		}
+	            		
+		            		
+		            }
+//		            System.out.println("count = "+countstart);
+		            }
+
+		        catch (IOException e) {
+		            System.err.format("IOException: %s%n", e);
+		        }
+////NewVersionn
+		        LinkedList<Integer> Skip = new LinkedList<Integer>(); 
+
+				try (BufferedReader br = Files.newBufferedReader(Paths.get("test.txt"))) {
+
+				    // read line by line
+				    String line;
+				    
+				    int round = 0;
+				    int checkDiff = 0;int checkNextLine = 0;int check3 =0;
+				    try {
+						while ((line = br.readLine()) != null) {
+							round++;
+							if(line.trim().isEmpty()&&checkDiff==1)
+								{
+									checkNextLine=1;
+									check3++;
+									if(checkDiff==1&&checkNextLine==1&&(round-check3)<=2)
+									{
+										Skip.add(round-1);
+										Skip.add(round);
+										System.out.println("Frame = "+(round-1));
+										System.out.println("Line = "+round);
+										
+										checkNextLine=0;
+										checkDiff=1;
+									}	
+									continue;
+								}
+
+							String [] sentence = line.split(" ");
+							
+							 if(sentence[1].equals("frame") == true)
+							{
+								checkDiff=1;
+								check3=round;
+								
+							}
+				
+	}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+				
+//				System.out.println("Size =============== "+Skip.size());
+				for(int i=0;i<Skip.size();i++)
+				{
+					//System.out.println("Skip = "+Skip.get(i));
+				}
+				System.out.println("Size =============== "+Skip.size());
+		        ////NewVersionn	        
+
+System.out.println("Total leaf node = "+countstart); 
+
+	        StringBuilder sb = new StringBuilder();
+
+			try (BufferedReader br = Files.newBufferedReader(Paths.get("test.txt"))) {
+
+			    // read line by line
+			    String line;
+			    int first = 0;
+			    int i = 1;
+			    int check = 0;
+			    int roundFinal = 0;
+			    int position=0;
+			    while ((line = br.readLine()) != null) {
+			    	roundFinal++;
+			    	if(roundFinal==Skip.get(position))
+			    	{	position++;
+			    		continue;
+			    	}
+			    		if(line.trim().isEmpty())
+			    		{
+			    			continue;
+			    			
+			    		}
+			    		String [] sentence = line.split(" ");
+			    		int size = line.split(" ").length;
+			    		int nextsize = line.split(" ").length;
+//		            		System.out.println("i = "+i); 
+//		            		System.out.println("size = "+size);
+//		            		System.out.println(line);    
+			    		i++;
+//		            		if (i == 33000)
+//		            		{
+//		            			break;
+//		            		}
+			    		if( sentence[1].equals("frame") == true &&  first==0)
+						{
+							
+							System.out.println("Hey It must create a new file");    
+							try {
+								System.out.println("Creating file number "+count);  
+								FileWriter aom = new FileWriter("0"+".log");
+								System.out.println("Create file "+count);   
+								aom.write("# SphereID Center[X Y Z] Radius Density Region Score Weight\n");
+								aom.write("LeafCount "+countstart);
+								aom.write("\n");
+								aom.write("NodeCount "+countstart);
+								aom.write("\n");
+								aom.close();    
+								
+								first =1;
+							}
+				        	catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+			    		else if( sentence[1].equals("frame") == true  &&  first==1)
+			    			{
+			    				
+			    				System.out.println("Hey It must create a new file");    
+			    				try {
+			    					count++;
+			    					System.out.println("Creating file number "+count);  
+			    					FileWriter aom = new FileWriter(count+".log");
+			    					System.out.println("Create file "+count);   
+			    					aom.write("# SphereID Center[X Y Z] Radius Density Region Score Weight\n");
+			    					aom.write("LeafCount "+countstart);
+									aom.write("\n");
+									aom.write("NodeCount "+countstart);
+									aom.write("\n");
+			    					aom.close();    
+			    					check=1;
+			    					
+			    				}
+			    	        	catch (IOException e) {
+			    					e.printStackTrace();
+			    				}
+			    			}
+			    		else if(first==1 && check ==0)
+			    			{
+			    			File file = new File("0"+".log");
+			    			if (!file.exists()) {
+			    				try {
+			    					file.createNewFile();
+			    				} catch (IOException e) {
+			    					e.printStackTrace();
+			    				}
+			    			} 
+			    		  
+			    			try {
+			    				BufferedWriter buf = new BufferedWriter(new FileWriter(file, true)); 
+			    				buf.append("1 ");
+			    				buf.append(line);
+			    				buf.newLine();
+			    				buf.close();
+			    			} catch (IOException e) {
+			    				e.printStackTrace();
+			    			}
+			    			}
+			    			else if(check==1)
+			    			{
+			    			File file = new File(count+".log");
+			    			if (!file.exists()) {
+			    				try {
+			    					file.createNewFile();
+			    				} catch (IOException e) {
+			    					e.printStackTrace();
+			    				}
+			    			} 
+			    		  
+			    			try {
+			    				BufferedWriter buf = new BufferedWriter(new FileWriter(file, true)); 
+			    				buf.append("1 ");
+			    				buf.append(line);
+			    				buf.newLine();
+			    				buf.close();
+			    			} catch (IOException e) {
+			    				e.printStackTrace();
+			    			}
+			    			}
+			    				
+ 
+			    }
+
+			} catch (IOException e) {
+			    System.err.format("IOException: %s%n", e);
+			}
+
+	    }}
+	
+	
+
+
