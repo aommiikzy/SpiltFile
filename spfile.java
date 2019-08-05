@@ -14,6 +14,8 @@ public class spfile {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		//This is file from Sirichoke Yooyen 
+		//If has any question please contact to Duece.
 	    //  String fileName = "output.txt";
 	      
 //	            StringBuilder aom = new StringBuilder();
