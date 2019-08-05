@@ -42,6 +42,7 @@ public class spfile {
 //		        }
 	      
 	        int count=0;
+	        int frame=0;
 	      int countstart = 0;
 	            StringBuilder start = new StringBuilder();
 
@@ -110,8 +111,8 @@ public class spfile {
 									{
 										Skip.add(round-1);
 										Skip.add(round);
-										System.out.println("Frame = "+(round-1));
-										System.out.println("Line = "+round);
+//										System.out.println("Frame = "+(round-1));
+//										System.out.println("Line = "+round);
 										
 										checkNextLine=0;
 										checkDiff=1;
@@ -172,8 +173,6 @@ System.out.println("Total leaf node = "+countstart);
 			    			
 			    		}
 			    		String [] sentence = line.split(" ");
-			    		int size = line.split(" ").length;
-			    		int nextsize = line.split(" ").length;
 //		            		System.out.println("i = "+i); 
 //		            		System.out.println("size = "+size);
 //		            		System.out.println(line);    
@@ -185,11 +184,11 @@ System.out.println("Total leaf node = "+countstart);
 			    		if( sentence[1].equals("frame") == true &&  first==0)
 						{
 							
-							System.out.println("Hey It must create a new file");    
+//							System.out.println("Hey It must create a new file");    
 							try {
-								System.out.println("Creating file number "+count);  
+								//System.out.println("Creating file number "+frame);  
 								FileWriter aom = new FileWriter("0"+".log");
-								System.out.println("Create file "+count);   
+								System.out.println("Create file at frame "+frame);   
 								aom.write("# SphereID Center[X Y Z] Radius Density Region Score Weight\n");
 								aom.write("LeafCount "+countstart);
 								aom.write("\n");
@@ -205,13 +204,13 @@ System.out.println("Total leaf node = "+countstart);
 						}
 			    		else if( sentence[1].equals("frame") == true  &&  first==1)
 			    			{
-			    				
-			    				System.out.println("Hey It must create a new file");    
+			    				 frame = Integer.parseInt(sentence[3]);
+			    				//System.out.println("Hey It must create a new file");    
 			    				try {
-			    					count++;
-			    					System.out.println("Creating file number "+count);  
-			    					FileWriter aom = new FileWriter(count+".log");
-			    					System.out.println("Create file "+count);   
+			    					//count++;
+			    					  
+			    					FileWriter aom = new FileWriter(frame+".log");
+			    					System.out.println("Create file at frame "+frame);    
 			    					aom.write("# SphereID Center[X Y Z] Radius Density Region Score Weight\n");
 			    					aom.write("LeafCount "+countstart);
 									aom.write("\n");
@@ -248,7 +247,7 @@ System.out.println("Total leaf node = "+countstart);
 			    			}
 			    			else if(check==1)
 			    			{
-			    			File file = new File(count+".log");
+			    			File file = new File(frame+".log");
 			    			if (!file.exists()) {
 			    				try {
 			    					file.createNewFile();
