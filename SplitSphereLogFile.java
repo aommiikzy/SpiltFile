@@ -9,46 +9,26 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.Scanner;
 
-public class spfile {
+public class SplitSphereLogFile {
 
 	public static void main(String[] args) {
+		
 		// TODO Auto-generated method stub
 		//This is file from Sirichoke Yooyen 
 		//If has any question please contact to Duece.
-	    //  String fileName = "output.txt";
-	      
-//	            StringBuilder aom = new StringBuilder();
-//
-//		        try (BufferedReader br = Files.newBufferedReader(Paths.get("test.txt"))) {
-//
-//		        	 String line;
-//		        	 int c = 0;
-//		        	 LinkedList<Integer> array = new LinkedList<Integer>(); 
-//			          
-//			            while ((line = br.readLine()) != null) {
-//			            	
-//			            	if(line.trim().isEmpty())
-//			            	{
-//			            		array.add(0);
-//			            	}
-//			            if(line.trim().isEmpty()==false)
-//			            	{
-//			            		array.add(1);
-//			            	}
-//			            }
-//
-//		        }
-//		        catch (IOException e) {
-//		            System.err.format("IOException: %s%n", e);
-//		        }
-	      
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Please enter the file name of SphereLog file : ");
+		String input = scan.nextLine();
+	
+		System.out.println("Your file name is " + input);
 	        int count=0;
 	        int frame=0;
 	      int countstart = 0;
 	            StringBuilder start = new StringBuilder();
 
-		        try (BufferedReader br = Files.newBufferedReader(Paths.get("test.txt"))) {
+		        try (BufferedReader br = Files.newBufferedReader(Paths.get(input))) {
 
 		            String line;
 		            int numberpre = -1;
@@ -95,7 +75,7 @@ public class spfile {
 ////NewVersionn
 		        LinkedList<Integer> Skip = new LinkedList<Integer>(); 
 
-				try (BufferedReader br = Files.newBufferedReader(Paths.get("test.txt"))) {
+				try (BufferedReader br = Files.newBufferedReader(Paths.get(input))) {
 
 				    // read line by line
 				    String line;
@@ -154,7 +134,7 @@ System.out.println("Total leaf node = "+countstart);
 
 	        StringBuilder sb = new StringBuilder();
 
-			try (BufferedReader br = Files.newBufferedReader(Paths.get("test.txt"))) {
+			try (BufferedReader br = Files.newBufferedReader(Paths.get(input))) {
 
 			    // read line by line
 			    String line;
